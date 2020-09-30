@@ -1,18 +1,36 @@
-# Socket Programming.
+# Message oriented persistent systems
 
-A system consisting of a server and three client processesis developed where each client process will connect to the server
-over a socket connection and register a username at the server. The server should be able to handle all three clients
-simultaneously and display the names of the connected clients in real time.
-Two or more clients may not use the same username simultaneously. Should the server detect a concurrent conflict in
-username, the client’s connection should be rejected, and the client’s user should be prompted to input a different
-name.
-
-Every ten seconds, the server will randomly select a connected client and send that client an integer between 3 and 9.
-Upon receiving the integer, the client will pause (e.g., sleep or otherwise suspend) the thread managing the connection
-to the server for a period equaling the value received from the server, in seconds. The client’s GUI will maintain a
-decrementing countdown timer indicating when the thread will resume, as well as a button to skip the wait and resume
-the thread’s operation immediately.
-
-When the client thread is finished waiting, it will reply to the server with a message stating, “Client <name> waited <#>
-seconds for server.” The server will display this message on its GUI. This sequence will be repeated until the
-components are manually terminated by the user.
+An asynchronous messaging system consisting of a message broker (server) and three client processes has been developed.
+Each client process will connect to the server over a socket connection. The server should be able to handle all three
+clients simultaneously and display the status of the connected clients in real time. How to distinguish clients is left to
+the developer’s discretion.
+Upon startup, clients will prompt users to select one of two options:
+1. Upload message; or,
+2. Check for messages.
+If a user selects ‘Upload message’, the client will prompt the user to input a decimal number, which will represent a
+length in meters. The client will prompt the user to designate an output queue (described below), then proceed to
+upload the message to the server.
+If a user selects ‘Check for messages’, the client will prompt the user to select an output queue. The client will proceed
+to poll the output queue. If no messages are present in the queue, the user should be notified that the queue is empty.
+If any messages are available, those messages will be retrieved from the queue and displayed to the user.
+The message broker will maintain three output queues: A, B, and C. Upon placing a message into the queue, the server
+will perform a conversion of the input length received from the client into several different units of length. The
+corresponding units of length for each queue are as follows.
+A
+• Meter
+• Millimeter
+• Centimeter
+• Kilometer
+• Astronomical Unit
+B
+• Parsec
+• Light Year
+• Inch
+• Foot
+• Yard
+C
+• Mile
+• Nautical Mile
+• American football field
+• Hand
+• Horse
